@@ -1,0 +1,41 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1700105631995,
+      "tag": "0000_closed_gressill",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1700106402617,
+      "tag": "0001_cultured_rhodey",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1700107677144,
+      "tag": "0002_wet_luke_cage",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1700570494067,
+      "tag": "0003_shiny_texas_twister",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1701054982007,
+      "tag": "0004_amazing_nextwave",
+      "breakpoints": true
+    }
+  ]
+}
