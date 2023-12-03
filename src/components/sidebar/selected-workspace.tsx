@@ -21,7 +21,7 @@ export default function Selectedworksapce({
         .getPublicUrl(workspace.logo)?.data.publicUrl;
       setWsLogo(path);
     }
-  }, [workspace]);
+  }, [workspace, supabase]);
   return (
     <Link
       href={`/dashboard/${workspace.id}`}

@@ -5,6 +5,8 @@ import db from "./db";
 import { and, eq, ilike, notExists } from "drizzle-orm";
 import { files, folders, users, workspaces } from "../../../migrations/schema";
 import { collaborators } from "./schema";
+import { createServerActionClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export const getUserSubscriptionStatus = async (userId: string) => {
   try {
@@ -268,11 +270,33 @@ export const getAuthUser = async (userId: string) => {
   }
 };
 
+export const getAllUser = async () => {
+  const supabase = createServerComponentClient({cookies})
+  try {
+    const res = await db.select().from(users).orderBy(users.fullName);
+    const resData = res.map((r) => {
+      if(!r.avatarUrl){
+        return{
+          ...r,
+          avatarUrl: ''
+        }
+      }
+      return{
+        ...r,
+        avatarUrl: supabase.storage.from('avatars').getPublicUrl(r.avatarUrl).data.publicUrl
+      }
+    })
+    return resData
+  } catch (error) {
+    return []
+  }
+};
+
 export const updateUser = async (user: Partial<User>, userId: string) => {
   try {
-    await db.update(users).set(user).where(eq(users.id, userId))
+    await db.update(users).set(user).where(eq(users.id, userId));
     return { data: null, error: null };
   } catch (error) {
     return { data: null, error: "Error updating profile" };
   }
-}
+};

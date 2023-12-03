@@ -7,6 +7,7 @@ import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
 import {
   addCollaborators,
   deleteWorkspace,
+  getAllUser,
   getAuthUser,
   getCollaborators,
   removeCollaborators,
@@ -134,10 +135,6 @@ export default function SettingsForm() {
   const onChangeFullName = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value || !user?.id) return;
     setUserFullName(e.target.value)
-    dispatch({
-      type: "EDIT_PROFILE",
-      payload: { user: { fullName: e.target.value }, userId: user.id },
-    });
     if (titleTimerRef.current) clearTimeout(titleTimerRef.current);
     titleTimerRef.current = setTimeout(async () => {
       await updateUser({ fullName: e.target.value }, user?.id);

@@ -13,7 +13,6 @@ import { getFiles } from "../supabase/queries";
 
 interface AppState {
   workspaces: appWorkspacesType[] | [];
-  users: User[] | [];
 }
 
 type Action =
@@ -68,16 +67,8 @@ type Action =
         fileId: string;
       };
     }
-  | {
-      type: "SET_USERS";
-      payload: { users: User[] | [] };
-    }
-  | {
-      type: "EDIT_PROFILE";
-      payload: { user: Partial<User>; userId: string };
-    };
 
-const initialState: AppState = { workspaces: [], users: [] };
+const initialState: AppState = { workspaces: [] };
 
 const appReducer = (
   state: AppState = initialState,
@@ -274,24 +265,6 @@ const appReducer = (
             };
           }
           return workspace;
-        }),
-      };
-    case "SET_USERS":
-      return {
-        ...state,
-        ...action.payload.users,
-      };
-    case "EDIT_PROFILE":
-      return {
-        ...state,
-        users: state.users.map((user) => {
-          if (user.id === action.payload.userId) {
-            return {
-              ...user,
-              ...action.payload.user,
-            };
-          }
-          return user;
         }),
       };
     default:
