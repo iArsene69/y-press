@@ -5,7 +5,10 @@ import db from "./db";
 import { and, eq, ilike, notExists } from "drizzle-orm";
 import { files, folders, users, workspaces } from "../../../migrations/schema";
 import { collaborators } from "./schema";
-import { createServerActionClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import {
+  createServerActionClient,
+  createServerComponentClient,
+} from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 export const getUserSubscriptionStatus = async (userId: string) => {
@@ -271,24 +274,25 @@ export const getAuthUser = async (userId: string) => {
 };
 
 export const getAllUser = async () => {
-  const supabase = createServerComponentClient({cookies})
+  const supabase = createServerComponentClient({ cookies });
   try {
     const res = await db.select().from(users).orderBy(users.fullName);
     const resData = res.map((r) => {
-      if(!r.avatarUrl){
-        return{
+      if (!r.avatarUrl) {
+        return {
           ...r,
-          avatarUrl: ''
-        }
+          avatarUrl: "",
+        };
       }
-      return{
+      return {
         ...r,
-        avatarUrl: supabase.storage.from('avatars').getPublicUrl(r.avatarUrl).data.publicUrl
-      }
-    })
-    return resData
+        avatarUrl: supabase.storage.from("avatars").getPublicUrl(r.avatarUrl)
+          .data.publicUrl,
+      };
+    });
+    return resData;
   } catch (error) {
-    return []
+    return [];
   }
 };
 
@@ -298,5 +302,72 @@ export const updateUser = async (user: Partial<User>, userId: string) => {
     return { data: null, error: null };
   } catch (error) {
     return { data: null, error: "Error updating profile" };
+  }
+};
+
+export const deleteFile = async (fileId: string) => {
+  if (!fileId) return;
+  await db.delete(files).where(eq(files.id, fileId));
+};
+
+export const deleteFolder = async (folderId: string) => {
+  if (!folderId) return;
+  await db.delete(files).where(eq(files.id, folderId));
+};
+
+export const getFileDetails = async (fileId: string) => {
+  const isValid = validate(fileId);
+  if (!isValid) {
+    data: [];
+    error: "uuid is not valid";
+  }
+
+  try {
+    const res = (await db
+      .select()
+      .from(files)
+      .where(eq(files.id, fileId))
+      .limit(1)) as FileType[];
+    return { data: res, error: null };
+  } catch (error) {
+    return { data: [], error: "err" };
+  }
+};
+
+export const getFolderDetails = async (folderId: string) => {
+  const isValid = validate(folderId);
+  if (!isValid) {
+    data: [];
+    error: "uuid is not valid";
+  }
+
+  try {
+    const res = (await db
+      .select()
+      .from(folders)
+      .where(eq(folders.id, folderId))
+      .limit(1)) as Folder[];
+    return { data: res, error: null };
+  } catch (error) {
+    return { data: [], error: "err" };
+  }
+};
+
+export const getWorkspaceDetails = async (workspaceId: string) => {
+  const isValid = validate(workspaceId);
+  if (!isValid) {
+    data: [];
+    error: "uuid is not valid";
+  }
+
+  try {
+    const res = (await db
+      .select()
+      .from(workspaces)
+      .where(eq(workspaces.id, workspaceId))
+      .limit(1)) as Workspace[];
+    return { data: res, error: null };
+  } catch (error) {
+    return { data: [], error: "err" };
   }
 };
