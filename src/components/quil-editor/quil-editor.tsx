@@ -29,6 +29,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import EmojiPicker from "../global/emoji-picker";
+import { XCircleIcon } from "lucide-react";
+import BannerUpload from "../banner-upload/banner-upload";
 
 type QuillEditorProps = {
   dirDetails: FileType | Folder | Workspace;
@@ -229,7 +231,7 @@ export default function QuillEditor({
     }
   };
 
-  const deletBanner = async () => {
+  const deleteBanner = async () => {
     if (!fileId) return;
     setDeletingBanner(true);
     if (dirType === "file") {
@@ -563,7 +565,15 @@ export default function QuillEditor({
       </div>
       {details.bannerUrl && (
         <div className="relative w-full h-[200px]">
-          <Image src={supabase.storage.from('banners').getPublicUrl(details.bannerUrl).data.publicUrl} fill alt="Banner image" className="w-full md:h-48 h-20 object-cover" />
+          <Image
+            src={
+              supabase.storage.from("banners").getPublicUrl(details.bannerUrl)
+                .data.publicUrl
+            }
+            fill
+            alt="Banner image"
+            className="w-full md:h-48 h-20 object-cover"
+          />
         </div>
       )}
       <div className="flex justify-center items-center flex-col mt-2 relative">
@@ -576,11 +586,33 @@ export default function QuillEditor({
             </EmojiPicker>
           </div>
           <div className="flex">
-            <BannerUpload id={fileId} dirType={dirType} className="mt-2 text-sm text-muted-foreground p-2 hover:text-card-foreground transition-all rounded-md">
-              {details.bannerUrl ? 'Update Banner' : 'Add Banner'}
+            <BannerUpload
+              id={fileId}
+              dirType={dirType}
+              className="mt-2 text-sm text-muted-foreground p-2 hover:text-card-foreground transition-all rounded-md"
+            >
+              {details.bannerUrl ? "Update Banner" : "Add Banner"}
             </BannerUpload>
+            {details.bannerUrl && (
+              <Button
+                disabled={deletingBanner}
+                onClick={deleteBanner}
+                variant="ghost"
+                className="gap-2 hover:bg-background flex items-center justify-center mt-2 text-sm text-muted-foreground w-36 p-2 rounded-md"
+              >
+                <XCircleIcon size={16} />
+                <span className="whitespace-nowrap font-normal">Remove</span>
+              </Button>
+            )}
           </div>
+          <span className="text-muted-foreground text-3xl font-bold h-9">
+            {details.title}
+          </span>
+          <span className="text-muted-foreground text-sm">
+            {dirType.toUpperCase()}
+          </span>
         </div>
+        <div id="container" className="max-w-[800px]" ref={wrapperRef}></div>
       </div>
     </>
   );
