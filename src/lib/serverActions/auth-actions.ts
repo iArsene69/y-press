@@ -33,7 +33,7 @@ export async function actionSignUpUser({
     email,
     password,
     options: {
-      emailRedirectTo: `http://localhost:3000/api/auth/callback`,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`,
     },
   });
   return response;

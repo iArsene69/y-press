@@ -11,6 +11,7 @@ import { Accordion } from "../ui/accordion";
 import { createFolder } from "@/lib/supabase/queries";
 import TooltipComponent from "../global/tooltip-component";
 import Dropdown from "./dropdown";
+import useSupabaseRealtime from "@/lib/hooks/useSupabaseRealtime";
 
 type FoldersDropdownListProps = {
   workspaceFolders: Folder[];
@@ -22,6 +23,8 @@ export default function FoldersDropdownList({
   workspaceId,
 }: FoldersDropdownListProps) {
   //add realtime
+
+  useSupabaseRealtime()
 
   const { state, dispatch, folderId } = useAppState();
   const { open, setOpen } = useSubscriptionModal();

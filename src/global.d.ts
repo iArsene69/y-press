@@ -14,8 +14,11 @@ import {
   subscriptions,
   users,
   workspaces,
-  files
+  files,
 } from "../migrations/schema";
+import { NextApiResponse } from "next";
+import { Socket, Server as NetServer } from "net";
+import { Server as SocketIOServer } from "socket.io";
 
 type TABLES = DB["public"]["Tables"];
 
@@ -42,4 +45,12 @@ declare global {
   type Form = z.infer<typeof FormSchema>;
   type SignUpForm = z.infer<typeof SignUpFormSchema>;
   type CreateWorkspaceForm = z.infer<typeof CreateWorkspaceFormSchema>;
+
+  type NextApiResponseServerIo = NextApiResponse & {
+    socket: Socket & {
+      server: NetServer & {
+        io: SocketIOServer;
+      };
+    };
+  };
 }

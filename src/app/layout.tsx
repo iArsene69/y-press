@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import AppStateProvider from "@/lib/providers/state-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { SupabaseUserProvider } from "@/lib/providers/supabase-user-provider";
+import { SocketProvider } from "@/lib/providers/socket-provider";
 
 const fontSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -35,8 +36,10 @@ export default function RootLayout({
         >
           <AppStateProvider>
             <SupabaseUserProvider>
-              {children}
-              <Toaster />
+              <SocketProvider>
+                {children}
+                <Toaster />
+              </SocketProvider>
             </SupabaseUserProvider>
           </AppStateProvider>
         </ThemeProvider>

@@ -218,6 +218,7 @@ export const updateWorkspace = async (
       .where(eq(workspaces.id, workspaceId));
     return { data: null, errror: null };
   } catch (error) {
+    console.log(error)
     return { data: null, error: "Error updating Workspace" };
   }
 };
@@ -249,6 +250,7 @@ export const updateFolder = async (
     await db.update(folders).set(folder).where(eq(folders.id, folderId));
     return { data: null, error: null };
   } catch (error) {
+    console.log(error)
     return { data: null, error: "Error updating folder" };
   }
 };
@@ -258,6 +260,7 @@ export const updateFile = async (file: Partial<FileType>, fileId: string) => {
     await db.update(files).set(file).where(eq(files.id, fileId));
     return { data: null, error: null };
   } catch (error) {
+    console.log(error)
     return { data: null, error: "Error updating file" };
   }
 };

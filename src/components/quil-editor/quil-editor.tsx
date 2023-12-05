@@ -31,6 +31,7 @@ import Image from "next/image";
 import EmojiPicker from "../global/emoji-picker";
 import { XCircleIcon } from "lucide-react";
 import BannerUpload from "../banner-upload/banner-upload";
+import { useSocket } from "@/lib/providers/socket-provider";
 
 type QuillEditorProps = {
   dirDetails: FileType | Folder | Workspace;
@@ -243,7 +244,7 @@ export default function QuillEditor({
       await supabase.storage.from("banners").remove([`banner.${fileId}`]);
       await updateFile({ bannerUrl: "" }, fileId);
     }
-    if (dirType === "file") {
+    if (dirType === "folder") {
       if (!workspaceId) return;
       dispatch({
         type: "UPDATE_FOLDER",
@@ -452,7 +453,7 @@ export default function QuillEditor({
     const subscription = room
       .on("presence", { event: "sync" }, () => {
         const newState = room.presenceState();
-        const newCollaborators = Object.values(newState).flat as any;
+        const newCollaborators = Object.values(newState).flat() as any;
         setCollaborators(newCollaborators);
         if (user) {
           const allCursors: any = [];
