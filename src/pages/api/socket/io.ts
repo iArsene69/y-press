@@ -16,6 +16,7 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
       path,
       addTrailingSlash: false,
     });
+    console.log('running socket api')
     io.on("connection", (s) => {
       s.on("create-room", (fileId) => {
         s.join(fileId);
@@ -32,3 +33,5 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   }
   res.end();
 };
+
+export default ioHandler

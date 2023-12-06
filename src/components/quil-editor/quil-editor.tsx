@@ -131,7 +131,7 @@ export default function QuillEditor({
       ? `/${folderDetails.iconId} ${folderDetails.title}`
       : "";
 
-    if (segments.length === 2) return;
+    if (segments.length === 2) return `${workspaceBreadCrumbs} ${folderBreadCrumb}`;
     const fileSegment = segments[2];
     const fileDetails = folderDetails?.files.find(
       (file) => file.id === fileSegment
@@ -384,6 +384,7 @@ export default function QuillEditor({
       const quillLength = quill.getLength();
       saveTimerRef.current = setTimeout(async () => {
         if (contents && quillLength !== 1 && fileId) {
+          console.log('running')
           if (dirType === "workspace") {
             dispatch({
               type: "UPDATE_WORKSPACE",
@@ -417,7 +418,7 @@ export default function QuillEditor({
                 fileId,
               },
             });
-            await updateWorkspace({ data: JSON.stringify(contents) }, fileId);
+            await updateFile({ data: JSON.stringify(contents) }, fileId);
           }
         }
         setSaving(false);
@@ -435,7 +436,7 @@ export default function QuillEditor({
   }, [quill, socket, fileId, user, details, folderId, workspaceId, dispatch]);
 
   useEffect(() => {
-    if (quill === null || socket.null) return;
+    if (quill === null || socket === null) return;
     const socketHandler = (deltas: any, id: string) => {
       if (id === fileId) {
         quill.updateContents(deltas);
@@ -494,6 +495,7 @@ export default function QuillEditor({
 
   return (
     <>
+    {isConnected ? 'Connect' : 'Disconnect'}
       <div className="relative">
         {details.inTrash && (
           <article className="py-2 z-40 bg-[#eb5757] flex md:flex-row flex-col justify-center items-center gap-4 flex-wrap">
