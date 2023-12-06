@@ -56,7 +56,7 @@ export default function Restore() {
           {files.map((file) => (
             <Link
               className="hover:bg-muted rounded-md p-2 flex items-center justify-between"
-              href={`/dashboard/${file.folderId}/${file.id}`}
+              href={`/dashboard/${file.workspaceId}/${file.folderId}/${file.id}`}
               key={file.id}
             >
               <article>

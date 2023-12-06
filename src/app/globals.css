@@ -113,5 +113,5 @@
 .ql-editor > p,
 ol,
 ul {
-  @apply dark:text-purple-700;
+  @apply dark:text-muted-foreground;
 }

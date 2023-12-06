@@ -495,7 +495,7 @@ export default function QuillEditor({
 
   return (
     <>
-    {isConnected ? 'Connect' : 'Disconnect'}
+    {/* {isConnected ? 'Connect' : 'Disconnect'} */}
       <div className="relative">
         {details.inTrash && (
           <article className="py-2 z-40 bg-[#eb5757] flex md:flex-row flex-col justify-center items-center gap-4 flex-wrap">
