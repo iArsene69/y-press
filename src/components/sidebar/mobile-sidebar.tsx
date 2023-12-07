@@ -12,17 +12,16 @@ export default function MobileSidebar({
 }) {
   return (
     <Sheet>
-      <SheetContent side={"left"}>{children}</SheetContent>
-      <nav className="sticky top-0 w-full bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60 sm:hidden z-50">
-        <ul className="flex justify-startitems-center p-4">
-          <SheetTrigger asChild>
-            <Button size="icon" variant="outline">
-              <MenuSquare />
-            </Button>
-          </SheetTrigger>
-        </ul>
-      </nav>
+      <SheetContent side="right">{children}</SheetContent>
+      <SheetTrigger asChild>
+        <Button
+          size="icon"
+          className="fixed z-50 sm:hidden bottom-8 rounded-full right-4"
+          variant="default"
+        >
+          <MenuSquare />
+        </Button>
+      </SheetTrigger>
     </Sheet>
   );
 }
-

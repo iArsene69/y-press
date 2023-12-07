@@ -19,7 +19,7 @@ export default function WorkspaceLayout({
           />
         </MobileSidebar>
         <Sidebar params={params} />
-        <div className="dark:border-neutral-50/70 border-none sm:border-l-[1px] w-full relative overflow-scroll">
+        <div className="dark:sm:border-neutral-50/70 sm:border-l-[1px] w-full relative overflow-y-scroll">
           {children}
         </div>
       </main>
