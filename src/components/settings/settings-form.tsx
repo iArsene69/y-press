@@ -85,7 +85,7 @@ export default function SettingsForm() {
     setLoadingPortal(true);
     try {
       const { url, error } = await postData({
-        url: "some/url",
+        url: '/api/create-portal-link',
       });
       window.location.assign(url);
       throw new Error("Error at payment portal");

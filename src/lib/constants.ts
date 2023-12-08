@@ -10,6 +10,69 @@ export const CLIENTS = [
   { alt: "client3", logo: client3 },
   { alt: "client4", logo: client4 },
   { alt: "client5", logo: client5 },
+  { alt: "client1", logo: client1 },
+  { alt: "client2", logo: client2 },
+  { alt: "client3", logo: client3 },
+  { alt: "client4", logo: client4 },
+  { alt: "client5", logo: client5 },
 ];
 
 export const MAX_FOLDERS_LENGTH = 5;
+
+export const FEATURES = [
+  {
+    title: 'Mur mur',
+    description: 'Mur mur',
+    bgUrl: '/img/wave-1.jpg'
+  },
+  {
+    title: 'Mur mur',
+    description: 'Mur mur',
+    bgUrl: '/img/wave-4.jpg'
+  },
+  {
+    title: 'Mur mur',
+    description: 'Mur mur',
+    bgUrl: '/img/wave-3.jpg'
+  },
+  {
+    title: 'Mur mur',
+    description: 'Mur mur',
+    bgUrl: '/img/flower-1.jpg'
+  },
+]
+
+export const COMPANIES = [
+  {
+    url: '',
+    alt: 'logo'
+  },
+  {
+    url: '',
+    alt: 'logo'
+  },
+  {
+    url: '',
+    alt: 'logo'
+  },
+  {
+    url: '',
+    alt: 'logo'
+  },
+  {
+    url: '',
+    alt: 'logo'
+  },
+  {
+    url: '',
+    alt: 'logo'
+  },
+  {
+    url: '',
+    alt: 'logo'
+  },
+  {
+    url: '',
+    alt: 'logo'
+  },
+]

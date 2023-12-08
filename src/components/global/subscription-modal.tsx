@@ -4,7 +4,7 @@ import { useSubscriptionModal } from "@/lib/providers/subscription-modal-provide
 import React, { useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
-import { postData } from "@/lib/utils";
+import { formatPrice, postData } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -14,11 +14,12 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import Loader from "../loader";
+import { getStripe } from "@/lib/stripe/stripeCient";
 
 export default function SubscriptionModal({
   products,
 }: {
-  products?: ProductWirhPrice[];
+  products?: ProductWithPrice[];
 }) {
   const { open, setOpen } = useSubscriptionModal();
   const { toast } = useToast();
@@ -42,7 +43,7 @@ export default function SubscriptionModal({
         data: { price },
       });
       const stripe = await getStripe();
-      stripe.redirectToCheckout({ sessionId });
+      stripe?.redirectToCheckout({ sessionId });
     } catch (error) {
       toast({
         title: "Yeah something went wrong",

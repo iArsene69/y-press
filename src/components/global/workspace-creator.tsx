@@ -21,17 +21,23 @@ import { Button } from "../ui/button";
 import CollaboratorSearch from "./collaborator-search";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useSubscriptionModal } from "@/lib/providers/subscription-modal-provider";
 
 export default function WorkspaceCreator() {
-  const { user } = useSupabaseUser();
+  const { user, subscription } = useSupabaseUser();
   const { toast } = useToast();
   const router = useRouter();
   const [permission, setPermission] = useState("private");
   const [title, setTitle] = useState("");
   const [collaborators, setCollaborators] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { open, setOpen } = useSubscriptionModal();
 
   const addCollaborator = (user: User) => {
+    if (subscription?.status !== "active" && collaborators.length >= 2) {
+      setOpen(open);
+      return;
+    }
     setCollaborators([...collaborators, user]);
   };
 
@@ -70,10 +76,10 @@ export default function WorkspaceCreator() {
   };
 
   const matchRegex = (email: string | null) => {
-    if(!email) return 'ID';
+    if (!email) return "ID";
     const regex = /\b\w/;
     const match = email.match(regex);
-    const merge = match?.join('')
+    const merge = match?.join("");
     return merge;
   };
 
@@ -112,9 +118,7 @@ export default function WorkspaceCreator() {
                   <Lock />
                   <article className="text-left flex flex-col">
                     <span>Private</span>
-                    <p>
-                      As it says this workspace will be private.
-                    </p>
+                    <p>As it says this workspace will be private.</p>
                   </article>
                 </div>
               </SelectItem>
@@ -157,8 +161,10 @@ export default function WorkspaceCreator() {
                       >
                         <div className="flex gap-4 items-center">
                           <Avatar>
-                            <AvatarImage src={c.avatarUrl ? c.avatarUrl : ''} />
-                            <AvatarFallback>{matchRegex(c.email)?.toUpperCase()}</AvatarFallback>
+                            <AvatarImage src={c.avatarUrl ? c.avatarUrl : ""} />
+                            <AvatarFallback>
+                              {matchRegex(c.email)?.toUpperCase()}
+                            </AvatarFallback>
                           </Avatar>
                           <div className="text-sm gap-2 text-muted-foreground overflow-hidden overflow-ellipsis sm:w-fit w-[140px]">
                             {c.email}

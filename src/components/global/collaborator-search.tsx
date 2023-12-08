@@ -12,7 +12,7 @@ import {
 } from "../ui/sheet";
 import { Search } from "lucide-react";
 import { Input } from "../ui/input";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { getUserFromSearch } from "@/lib/supabase/queries";
@@ -39,8 +39,6 @@ export default function CollaboratorSearch({
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
-
-  const getUserData = () => {};
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -80,7 +78,7 @@ export default function CollaboratorSearch({
           <SheetTitle>Search Collaborator</SheetTitle>
           <SheetDescription>
             <p className="text-sm text-muted-foreground">
-              This is still on development so stay tune
+             Search for friend to collaborate
             </p>
           </SheetDescription>
         </SheetHeader>
@@ -93,7 +91,7 @@ export default function CollaboratorSearch({
             onChange={onChangeHandler}
           />
         </div>
-        <ScrollArea className="mt-6 overflow-y-scroll w-full rounded-md">
+        <ScrollArea className="mt-6 w-full rounded-md">
           {searchResult
             .filter(
               (result) =>
@@ -124,6 +122,7 @@ export default function CollaboratorSearch({
                 </Button>
               </div>
             ))}
+            <ScrollBar orientation="vertical" />
         </ScrollArea>
       </SheetContent>
     </Sheet>

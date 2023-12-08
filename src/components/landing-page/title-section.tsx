@@ -14,16 +14,14 @@ export default function TitleSection({
   return (
     <React.Fragment>
       <section className="flex flex-col gap-4 justify-center items-start md:items-center">
-        <article className="rounded-full p-[1px] text-sm dark:bg-gradient-to-r dark:from-primary dark:to-secondary">
-          <div
-            className="rounded-full 
+        <div
+          className="rounded-xl
             px-3
             py-1
-            dark:bg-black"
-          >
-            {pill}
-          </div>
-        </article>
+            dark:bg-secondary"
+        >
+          {pill}
+        </div>
         {subheading ? (
           <>
             <h2
@@ -32,6 +30,7 @@ export default function TitleSection({
               sm:text-5xl
               sm:max-w-[750px]
               md:text-center
+              md:text-7xl
               font-semibold
             "
             >
@@ -52,6 +51,7 @@ export default function TitleSection({
             sm:text-6xl
             sm:max-w-[850px]
             md:text-center
+            md:text-8xl
             font-semibold
           "
           >

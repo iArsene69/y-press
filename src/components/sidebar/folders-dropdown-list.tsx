@@ -22,8 +22,6 @@ export default function FoldersDropdownList({
   workspaceFolders,
   workspaceId,
 }: FoldersDropdownListProps) {
-  //add realtime
-
   useSupabaseRealtime()
 
   const { state, dispatch, folderId } = useAppState();
@@ -57,7 +55,7 @@ export default function FoldersDropdownList({
   }, [state]);
 
   const addFolderHandler = async () => {
-    if (folders.length >= 3 && !subscription) {
+    if (folders.length >= 5 && !subscription) {
       setOpen(true);
       return;
     }

@@ -1,73 +1,63 @@
+import FeatureCard from "@/components/landing-page/feature-card";
 import TitleSection from "@/components/landing-page/title-section";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
-import { CLIENTS } from "@/lib/constants";
+import { CLIENTS, COMPANIES, FEATURES } from "@/lib/constants";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import clsx from "clsx";
+import { randomUUID } from "crypto";
+import { index } from "drizzle-orm/mysql-core";
+import { ArrowRight, Github, GithubIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 export default function HomePage() {
   return (
     <>
       <section className="overflow-hidden px-4 sm:px-6 mt-10 sm:flex sm:flex-col gap-4 md:justify-center md:items-center">
-        <TitleSection pill="Wazzup" title="Your workspaces, Evolve!" />
-        <div className="bg-white p-[2px] mt-6 mb-16 rounded-xl bg-gradient-to-r from-primary to-secondary sm:w-[300px]">
+        <TitleSection pill="Wazzup" title="Your workspaces, Evolve!" subheading="lorem ipsum kintum valkji haiok jsolw vango handp hajnIk nwolskoa hndlsa" />
+        <div className="flex justify-start mt-6 gap-4">
           <Button
-            variant={"secondary"}
-            className="w-full rounded-[10px] p-6 text-2xl bg-background"
+            variant="default"
+            className="flex justify-center group items-center gap-2 hover:bg-background hover:border-primary border border-transparent transition-all hover:text-primary duration-200"
           >
-            Get Ypress Free
+            Get Started{" "}
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+          </Button>
+          <Button
+            variant="secondary"
+            className="flex justify-center items-center gap-2"
+          >
+            <GitHubLogoIcon className="w-4 h-4" /> Source Code
           </Button>
         </div>
-        <div className="md:mt-[-90px] sm:w-full w-750px flex justify-center items-center mt-[-40px] relative sm:ml-0 mx-[-50px]">
-          <AspectRatio ratio={2 / 1}>
-            <Image
-              src={`/img/appBanner.png`}
-              fill
-              alt="App banner"
-            />
-          </AspectRatio>
-          <div className="absolute bottom-0 top-[-50%] bg-gradient-to-t dark:from-background left-0 right-0 z-10"></div>
-        </div>
       </section>
-      <section className="relative">
-        <div
-          className="overflow-hidden 
-          flex 
-          after:content['']
-          after:to-transparent 
-          after:from-background 
-          after:bg-gradient-to-l 
-          after:right-0 
-          after:bottom-0 
-          after:top-0
-          after:w-20 
-          after:z-10 
-          after:absolute 
-          before:content['']
-          before:to-transparent 
-          before:from-background 
-          before:bg-gradient-to-r
-          before:left-0 
-          before:bottom-0 
-          before:top-0
-          before:w-20 
-          before:z-10 
-          before:absolute"
-        >
-          {[...Array(2)].map((arr) => (
-            <div key={arr} className="flex flex-nowrap animate-slide">
-              {CLIENTS.map((client, idx) => (
-                <div key={idx} className="relative w-[200px] m-20 shrink-0 flex items-center">
-                  <Image src={client.logo} alt={client.alt} width={200} height={20} className="object-contain max-w-none" />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+      <section className="overflow-hidden px-4 sm:px-6 mt-10 flex flex-col w-fit mx-auto sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {FEATURES.map((feature, idx) => (
+          <FeatureCard key={idx} title={feature.title} description={feature.description} className="filter" bgUrl={feature.bgUrl} />
+        ))}
       </section>
-      {/* <section className="px-4 sm:px-6 flex justify-center items-center flex-col relative">
-        <div className="w-[30%] blur-[120px] rounded-full h-32 absolute bg-primary/50 -z-10 top-20"></div>
-      </section> */}
+      <section className="overflow-hidden px-4 sm:px-6 mt-20 flex flex-col">
+        <TitleSection title="Everyone trust us!" subheading="Source? I made it up so it'll look good" />
+        {[...Array(2)].map((arr, idx) => (
+          <div key={randomUUID()} className={twMerge(
+            clsx('mt-10 flex flex-nowrap gap-2 self-start', {
+              'flex-row-reverse': idx === 1,
+              'animate-[slide_250s_linear_infinite]': true,
+              'animate-[slide_250s_linear_infinite_reverse]': idx === 1,
+              'ml-[100vw]': idx === 1
+            }),
+            'hover:paused'
+          )}>
+            {CLIENTS.map((client, idx) => (
+              <div key={idx} className="relative w-[200px] mx-16 shrink-0 flex items-center">
+                <Image src={client.logo} alt={client.alt} width={200} className="object-contain max-w-none" />
+              </div>
+            ))}
+          </div>
+        ))}
+      </section>
     </>
   );
 }

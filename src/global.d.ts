@@ -34,7 +34,7 @@ declare global {
     prices: Price;
   };
 
-  type ProductWirhPrice = Product & {
+  type ProductWithPrice = Product & {
     prices?: Price[];
   };
   type appFoldersType = Folder & { files: FileType[] | [] };

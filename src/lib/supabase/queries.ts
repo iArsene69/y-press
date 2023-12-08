@@ -3,7 +3,13 @@
 import { validate } from "uuid";
 import db from "./db";
 import { and, eq, ilike, notExists } from "drizzle-orm";
-import { files, folders, users, workspaces } from "../../../migrations/schema";
+import {
+  files,
+  folders,
+  prices,
+  users,
+  workspaces,
+} from "../../../migrations/schema";
 import { collaborators } from "./schema";
 import {
   createServerActionClient,
@@ -13,10 +19,10 @@ import { cookies } from "next/headers";
 
 export const getUserSubscriptionStatus = async (userId: string) => {
   try {
-    const data = await db.query.subscriptions.findFirst({
+    const subsData = await db.query.subscriptions.findFirst({
       where: (sub, { eq }) => eq(sub.userId, userId),
     });
-    if (data) return { data: data as unknown as Subscription, error: null };
+    if (subsData) return { data: subsData as Subscription, error: null };
     else return { data: null, error: null };
   } catch (error) {
     return { data: null, error: `Error` };
@@ -218,7 +224,7 @@ export const updateWorkspace = async (
       .where(eq(workspaces.id, workspaceId));
     return { data: null, errror: null };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return { data: null, error: "Error updating Workspace" };
   }
 };
@@ -250,7 +256,7 @@ export const updateFolder = async (
     await db.update(folders).set(folder).where(eq(folders.id, folderId));
     return { data: null, error: null };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return { data: null, error: "Error updating folder" };
   }
 };
@@ -260,7 +266,7 @@ export const updateFile = async (file: Partial<FileType>, fileId: string) => {
     await db.update(files).set(file).where(eq(files.id, fileId));
     return { data: null, error: null };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return { data: null, error: "Error updating file" };
   }
 };
@@ -316,6 +322,23 @@ export const deleteFile = async (fileId: string) => {
 export const deleteFolder = async (folderId: string) => {
   if (!folderId) return;
   await db.delete(folders).where(eq(folders.id, folderId));
+};
+
+export const getActiveProductWithPrice = async () => {
+  try {
+    const res = await db.query.products.findMany({
+      where: (prd, { eq }) => eq(prd.active, true),
+      with: {
+        prices: {
+          where: (prc, { eq }) => eq(prc.active, true),
+        },
+      },
+    });
+    if (res.length) return { data: res, error: null };
+    return { data: [], error: null };
+  } catch (error) {
+    return { data: [], error: null };
+  }
 };
 
 export const getFileDetails = async (fileId: string) => {
@@ -380,4 +403,4 @@ export const findUser = async (userId: string) => {
     where: (u, { eq }) => eq(u.id, userId),
   });
   return response;
-}
+};

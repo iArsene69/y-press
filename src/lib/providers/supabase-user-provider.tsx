@@ -39,8 +39,11 @@ export function SupabaseUserProvider({ children }: SupabaseUserProviderProps) {
 
       if (user) {
         setUser(user);
-        const { data, error } = await getUserSubscriptionStatus(user.id);
-        if (data) setSubscription(data);
+        const { data: subscriptionData, error } =
+          await getUserSubscriptionStatus(user.id);
+        if (subscriptionData) {
+          setSubscription(subscriptionData);
+        }
         if (error) {
           toast({
             title: "Unexpected Error",
@@ -54,8 +57,8 @@ export function SupabaseUserProvider({ children }: SupabaseUserProviderProps) {
   }, [supabase, toast]);
 
   return (
-    <SupabaseUserContext.Provider value={{user, subscription}}>
-        {children}
+    <SupabaseUserContext.Provider value={{ user, subscription }}>
+      {children}
     </SupabaseUserContext.Provider>
-  )
+  );
 }
