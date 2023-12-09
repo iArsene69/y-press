@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "../ui/card";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import { ArrowRight } from "lucide-react";
 
 type FeatureCardProps = {
   title: string;
@@ -35,7 +37,11 @@ export default function FeatureCard({
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>{content}</CardContent>
-        <CardFooter>button or smth</CardFooter>
+        <CardFooter>
+          <Button>
+            Learn More <ArrowRight className="w-4 h-4" />
+          </Button>
+        </CardFooter>
       </div>
     </Card>
   );

@@ -62,6 +62,15 @@
   }
 }
 
+.cards:hover > .card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgb(255, 255, 255, 0.5);
+}
+
+.cards:hover > .card:not(:hover) {
+  transform: scale(0.8);
+}
+
 .ce-popover-item:hover {
   @apply bg-muted/40 transition-all !important;
 }

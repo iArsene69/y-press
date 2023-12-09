@@ -42,37 +42,29 @@ export const FEATURES = [
   },
 ]
 
-export const COMPANIES = [
+export const PRICING_CARDS = [
   {
-    url: '',
-    alt: 'logo'
+    planType: 'Free Plan',
+    price: 0,
+    description: 'Limited feature for teams',
+    highlightFeature: '',
+    features: [
+      "it's free",
+      "unlimited file upload",
+      'idk you name it'
+    ],
   },
   {
-    url: '',
-    alt: 'logo'
-  },
-  {
-    url: '',
-    alt: 'logo'
-  },
-  {
-    url: '',
-    alt: 'logo'
-  },
-  {
-    url: '',
-    alt: 'logo'
-  },
-  {
-    url: '',
-    alt: 'logo'
-  },
-  {
-    url: '',
-    alt: 'logo'
-  },
-  {
-    url: '',
-    alt: 'logo'
+    planType: 'Pro Plan',
+    price: 9.99,
+    description: 'Unlimited power!',
+    highlightFeature: 'Unlimited everything',
+    features: [
+      "it's paid",
+      "unlimited file upload",
+      'unlimited friends',
+      'unlimited folders',
+      'idk you name it'
+    ],
   },
 ]

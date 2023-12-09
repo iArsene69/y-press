@@ -76,7 +76,7 @@ const routes = [
 export default function Header() {
   const [path, setPath] = useState("");
   return (
-    <header className="p-4 flex justify-center items-center">
+    <header className="p-4 flex justify-center items-center sticky z-50 top-0 backdrop-blur-2xl bg-primary/30 border border-b-primary dark:bg-background/30">
       <Link href={"/"} className="w-full flex gap-2 justify-start items-center">
         <Image
           src={"/img/cypresslogo.svg"}
@@ -102,7 +102,7 @@ export default function Header() {
                 {route.title}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                <ul className="grid w-[400px]  gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {route.components.map((component, idx) => (
                     <ListItem
                       key={idx}
