@@ -13,9 +13,9 @@ import { CLIENTS, FEATURES, PRICING_CARDS } from "@/lib/constants";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import clsx from "clsx";
 import { randomUUID } from "crypto";
-import { index } from "drizzle-orm/mysql-core";
-import { ArrowRight, Check, Diamond, Github, GithubIcon } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -29,19 +29,23 @@ export default function HomePage() {
           subheading="lorem ipsum kintum valkji haiok jsolw vango handp hajnIk nwolskoa hndlsa"
         />
         <div className="flex justify-start mt-6 gap-4">
-          <Button
-            variant="default"
-            className="flex justify-center group items-center gap-2 hover:bg-background hover:border-primary border border-transparent transition-all hover:text-primary duration-200"
-          >
-            Get Started{" "}
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-          </Button>
-          <Button
-            variant="secondary"
-            className="flex justify-center items-center gap-2"
-          >
-            <GitHubLogoIcon className="w-4 h-4" /> Source Code
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              variant="default"
+              className="flex justify-center group items-center gap-2 hover:bg-background hover:border-primary border border-transparent transition-all hover:text-primary duration-200"
+            >
+              Get Started{" "}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+            </Button>
+          </Link>
+          <Link href="https://github.com/iArsene69/y-press">
+            <Button
+              variant="secondary"
+              className="flex justify-center items-center gap-2"
+            >
+              <GitHubLogoIcon className="w-4 h-4" /> Source Code
+            </Button>
+          </Link>
         </div>
         <div className="md:mt-[90px] md:w-4/5 w-full flex justify-center items-center mt-[40px] relative">
           <AspectRatio ratio={2 / 1}>
@@ -123,7 +127,9 @@ export default function HomePage() {
                       <div className="hidden dark:block w-full blur-[120px] rounded-full h-32 absolute bg-primary/80 -z-10 top-0" />{" "}
                     </>
                   )}
-                  {pricing.planType === 'Pro Plan' ? `💎 Pro Plan` : "Free Plan"}
+                  {pricing.planType === "Pro Plan"
+                    ? `💎 Pro Plan`
+                    : "Free Plan"}
                 </CardTitle>
               </CardHeader>
               <CardContent className="grid gap-4 p-4">

@@ -23,6 +23,7 @@ import Loader from "@/components/loader";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MailCheck } from "lucide-react";
 import { actionSignUpUser } from "@/lib/serverActions/auth-actions";
+import BrandLogo from "@/components/landing-page/brand-logo";
 
 export default function Page() {
   const router = useRouter();
@@ -72,12 +73,7 @@ export default function Page() {
         className="w-full sm:justify-center sm:w-[400px] first-letter:space-y-6 flex flex-col gap-4"
       >
         <Link href="/" className="w-full flex justify-start items-center">
-          <Image
-            src={"/img/cypresslogo.svg"}
-            alt="ypress"
-            width={50}
-            height={50}
-          />
+          <BrandLogo />
           <span className="font-semibold dark:text-white text-4xl first-letter:ml-4">
             YpresS
           </span>

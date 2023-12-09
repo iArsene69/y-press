@@ -13,7 +13,7 @@ export default function Selectedworksapce({
   onClick?: (option: Workspace) => void;
 }) {
   const supabase = createClientComponentClient();
-  const [wsLogo, setWsLogo] = useState("/img/cypresslogo.svg");
+  const [wsLogo, setWsLogo] = useState("/img/logo-y.svg");
   useEffect(() => {
     if (workspace.logo) {
       const path = supabase.storage

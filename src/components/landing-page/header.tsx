@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import BrandLogo from "./brand-logo";
 
 const routes = [
   {
@@ -78,12 +79,7 @@ export default function Header() {
   return (
     <header className="p-4 flex justify-center items-center sticky z-50 top-0 backdrop-blur-2xl bg-primary/30 border border-b-primary dark:bg-background/30">
       <Link href={"/"} className="w-full flex gap-2 justify-start items-center">
-        <Image
-          src={"/img/cypresslogo.svg"}
-          alt="ypress logo"
-          width={25}
-          height={25}
-        />
+       <BrandLogo />
         <span className="font-semibold dark:text-white">YpresS</span>
       </Link>
       <NavigationMenu className="hidden md:block">

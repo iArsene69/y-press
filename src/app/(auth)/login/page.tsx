@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/loader";
 import { actionLoginUser } from "@/lib/serverActions/auth-actions";
+import BrandLogo from "@/components/landing-page/brand-logo";
 
 export default function Login() {
   const router = useRouter();
@@ -52,12 +53,7 @@ export default function Login() {
         className="w-full sm:justify-center flex gap-4 sm:w-[400px] flex-col "
       >
         <Link href="/" className="w-full flex justify-start items-center">
-          <Image
-            src={"/img/cypresslogo.svg"}
-            alt="ypress"
-            width={50}
-            height={50}
-          />
+         <BrandLogo />
           <span className="font-semibold dark:text-white text-4xl first-letter:ml-4">
             YpresS
           </span>
